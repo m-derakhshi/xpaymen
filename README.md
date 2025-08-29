@@ -127,16 +127,11 @@ if ($verifiedTransaction instanceof CryptoTransactionDTO) {
 
 ## Testing
 
-This repository includes PHPUnit tests. Run the tests with:
+This repository includes PHPUnit tests.  
+You can run the tests with your API key in a single command:
 
 ```bash
-vendor/bin/phpunit
-```
-
-Make sure to set your API key in the environment for tests:
-
-```bash
-export API_KEY="your_api_key_here"
+API_KEY="your_api_key_here" vendor/bin/phpunit
 ```
 
 ## License
