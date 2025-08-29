@@ -1,0 +1,30 @@
+{
+  "name": "m-derakhshi/xpaymen",
+  "description": "Example API SDK for XPaymen (PHP)",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Masoud Derakhshi",
+      "email": "your-email@example.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "XPaymen\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "XPaymen\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=8.2",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0.1",
+    "laravel/pint": "^1.13"
+  }
+}
