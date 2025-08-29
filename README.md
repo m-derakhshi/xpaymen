@@ -6,6 +6,7 @@ A PHP client library for interacting with the [XPaymen](https://xpaymen.com) cry
 
 * [Installation](#installation)
 * [Configuration](#configuration)
+* [Obtaining an API Key](#obtaining-an-api-key)
 * [Usage](#usage)
 
     * [Create a Crypto Transaction](#create-a-crypto-transaction)
@@ -14,7 +15,6 @@ A PHP client library for interacting with the [XPaymen](https://xpaymen.com) cry
     * [Get Crypto Wallets](#get-crypto-wallets)
     * [Verify Callback Data](#verify-callback-data)
 * [Testing](#testing)
-* [Obtaining an API Key](#obtaining-an-api-key)
 * [License](#license)
 
 ## Installation
