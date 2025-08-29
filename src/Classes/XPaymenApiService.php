@@ -142,13 +142,36 @@ class XPaymenApiService
         $calculatedHash = hash_hmac('sha1', $serialized, $this->apiKey);
 
         if (hash_equals($calculatedHash, $verifyHash)) {
-            return $this->verifyCryptoTransactionInSite($_POST['transaction_id']);
+            return new CryptoTransactionDTO(
+                type: $_POST['type'],
+                status: $_POST['status'],
+                invoiceUrl: $_POST['invoice_url'],
+                transactionId: $_POST['transaction_id'],
+                sourceAmount: $_POST['source_amount'],
+                sourceCurrencyCode: $_POST['source_currency_code'],
+                orderId: $_POST['order_id'],
+                payerEmail: $_POST['payer_email'],
+                payerMessage: $_POST['payer_message'],
+                cryptoCurrencySymbol: $_POST['crypto_currency_symbol'],
+                virtualWalletAddress: $_POST['virtual_wallet_address'],
+                virtualWalletPendingIncomingBalance: $_POST['virtual_wallet_pending_incoming_balance'],
+                blockchainExpectedPaymentAmount: $_POST['blockchain_expected_payment_amount'],
+                blockchainPaymentAmount: $_POST['blockchain_payment_amount'],
+                blockchainUnpaidAmount: $_POST['blockchain_unpaid_amount'],
+                confirmAt: $_POST['confirm_at'],
+                confirmAtTimestamp: $_POST['confirm_at_timestamp'],
+                expiredAt: $_POST['expired_at'],
+                expiredAtTimestamp: $_POST['expired_at_timestamp'],
+                createdAt: $_POST['created_at'],
+                createdAtTimestamp: $_POST['created_at_timestamp'],
+                isCallbackUrlVerified: $_POST['is_callback_url_verified'],
+            );
         }
 
         return false;
     }
 
-    private function verifyCryptoTransactionInSite(string $transactionID): CryptoTransactionDTO
+    public function verifyCryptoTransactionInSite(string $transactionID): CryptoTransactionDTO
     {
         $response = $this->fetchUrl($this->apiUrl.'/crypto-transaction/'.$transactionID.'/callback/verify');
 

@@ -17,9 +17,3 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-index.php
-.htaccess
-php.ini
-
-/lang/**
-/modules/TestTest
