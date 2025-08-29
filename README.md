@@ -113,13 +113,13 @@ require 'vendor/autoload.php';
 
 $service = new XPaymenApiService('your_api_key_here');
 
-$verifiedTransactionDTO = $service->verifyCallbackData();
-if ($verifiedTransactionDTO instanceof CryptoTransactionDTO) {
+$verifiedTransaction = $service->verifyCallbackData();
+if ($verifiedTransaction instanceof CryptoTransactionDTO) {
     // Optional: verify the transaction on XPaymen.com
-    $service->verifyCryptoTransactionInSite($verifiedTransactionDTO->transactionId);
+    $service->verifyCryptoTransactionInSite($verifiedTransaction->transactionId);
 
     // Process the transaction data (save to DB, update order status, etc.)
-    print_r($verifiedTransactionDTO->toArray());
+    print_r($verifiedTransaction->toArray());
 } else {
     echo 'Callback verification failed.';
 }
