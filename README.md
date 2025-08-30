@@ -8,13 +8,13 @@ This library makes it easy to create and manage crypto transactions, wallets, an
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Obtaining an API Key](#obtaining-an-api-key)
+* [API Documentation](#api-documentation)
 * [Usage](#usage)
     * [Create a Crypto Transaction](#create-a-crypto-transaction)
     * [Get Crypto Transactions](#get-crypto-transactions)
     * [Get Transaction Detail](#get-transaction-detail)
     * [Get Crypto Wallets](#get-crypto-wallets)
     * [Verify Callback Data](#verify-callback-data)
-* [API Documentation](#api-documentation)
 * [Testing](#testing)
 * [License](#license)
 
@@ -41,6 +41,16 @@ $service = new XPaymenApiService($apiKey);
 
 To obtain an API key, visit the official [XPaymen website](https://xpaymen.com).
 Once registered, you can create and manage crypto payment gateways, and retrieve your API key from the **gateway details page**.
+
+## API Documentation
+
+For developers who want to explore the full API specification interactively,
+we provide a Swagger UI page:
+
+👉 [Open API Documentation (Swagger UI)](https://m-derakhshi.github.io/xpaymen/swagger.html)
+
+This page allows you to browse available endpoints, request/response formats,
+and test the API directly in your browser.
 
 ## Usage
 
@@ -100,7 +110,7 @@ try {
     $wallets = $service->getCryptoWallets();
 
     foreach ($wallets->data as $wallet) {
-        print_r($walle->toArray());
+        print_r($wallet->toArray());
     }
 
 } catch (Throwable $e) {
@@ -124,7 +134,7 @@ use XPaymen\DTOs\CryptoTransactionDTO;
 
 require 'vendor/autoload.php';
 
-$apiKey = 'XPI2NzrwM1y7YmenQu6BcdgLlbXLEaNCrZnkw3svgAdsNnWMsYq61ZgsxGL1CMx1';
+$apiKey = 'YOUR_API_KEY_HERE';
 $service = new XPaymenApiService($apiKey);
 
 echo '<pre>';
@@ -158,17 +168,6 @@ try {
 }
 echo '</pre>';
 ```
-
-## API Documentation
-
-For developers who want to explore the full API specification interactively,  
-we provide a Swagger UI page:
-
-👉 [Open API Documentation (Swagger UI)](https://m-derakhshi.github.io/xpaymen/swagger.html)
-
-This page allows you to browse available endpoints, request/response formats,  
-and test the API directly in your browser.
-
 
 ## Testing
 
