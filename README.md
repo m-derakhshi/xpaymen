@@ -54,6 +54,7 @@ try {
     $transaction = $service->createCryptoTransaction($orderId, $sourceAmount, $sourceCurrencyCode, [
         'payer_email' => 'user@example.com',
         'payer_message' => 'hi!',
+        'note' => 'Order contains 5 items',
     ]);
     
     echo $transaction->transactionId;
