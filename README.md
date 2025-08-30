@@ -136,7 +136,7 @@ try {
 
         // Optional: Verify transaction on XPaymen.com
         try {
-            $callbackTransaction = $service->verifyCryptoTransactionInSite($verifiedTransaction->transaction_id,$verifiedTransaction);
+            $callbackTransaction = $service->verifyCryptoTransactionInSite($verifiedTransaction);
 
             if ($callbackTransaction->is_callback_url_verified) {
                 echo "\n✅ Callback URL is verified.\n";
