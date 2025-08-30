@@ -56,8 +56,8 @@ try {
         'payer_message' => 'hi!',
     ]);
     
-    echo $transaction->transaction_id;
-    echo $transaction->invoice_url;
+    echo $transaction->transactionId;
+    echo $transaction->invoiceUrl;
 
 } catch (Throwable $e) {
     echo "❌ Error creating transaction: " . $e->getMessage();
@@ -135,9 +135,9 @@ try {
 
         // Optional: Verify transaction on XPaymen.com
         try {
-            $callbackTransaction = $service->verifyCryptoTransactionInSite($verifiedTransaction->transactionId);
+            $callbackTransaction = $service->verifyCryptoTransactionInSite($verifiedTransaction->transaction_id);
 
-            if ($callbackTransaction->isCallbackUrlVerified) {
+            if ($callbackTransaction->is_callback_url_verified) {
                 echo "\n✅ Callback URL is verified.\n";
             } else {
                 echo "\n⚠ Callback URL not verified.\n";

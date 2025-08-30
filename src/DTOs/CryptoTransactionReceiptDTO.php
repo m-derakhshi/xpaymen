@@ -6,30 +6,30 @@ readonly class CryptoTransactionReceiptDTO
 {
     public function __construct(
         public string $type,
-        public string $invoiceUrl,
-        public string $transactionId,
-        public string $sourceAmount,
-        public string $sourceCurrencyCode,
-        public ?string $orderId,
-        public ?string $payerEmail,
-        public ?string $payerMessage,
-        public string $createdAt,
-        public int $createdAtTimestamp,
+        public string $invoice_url,
+        public string $transaction_id,
+        public string $source_amount,
+        public string $source_currency_code,
+        public ?string $order_id,
+        public ?string $payer_email,
+        public ?string $payer_message,
+        public string $created_at,
+        public int $created_at_timestamp,
     ) {}
 
     public function toArray(): array
     {
         return [
             'type' => $this->type,
-            'invoice_url' => $this->invoiceUrl,
-            'transaction_id' => $this->transactionId,
-            'source_amount' => $this->sourceAmount,
-            'source_currency_code' => $this->sourceCurrencyCode,
-            'order_id' => $this->orderId,
-            'payer_email' => $this->payerEmail,
-            'payer_message' => $this->payerMessage,
-            'created_at' => $this->createdAt,
-            'created_at_timestamp' => $this->createdAtTimestamp,
+            'invoice_url' => $this->invoice_url,
+            'transaction_id' => $this->transaction_id,
+            'source_amount' => $this->source_amount,
+            'source_currency_code' => $this->source_currency_code,
+            'order_id' => $this->order_id,
+            'payer_email' => $this->payer_email,
+            'payer_message' => $this->payer_message,
+            'created_at' => $this->created_at,
+            'created_at_timestamp' => $this->created_at_timestamp,
         ];
     }
 
@@ -37,15 +37,15 @@ readonly class CryptoTransactionReceiptDTO
     {
         return new self(
             type: $data['type'],
-            invoiceUrl: $data['invoice_url'],
-            transactionId: $data['transaction_id'],
-            sourceAmount: $data['source_amount'],
-            sourceCurrencyCode: $data['source_currency_code'],
-            orderId: $data['order_id'] ?? null,
-            payerEmail: $data['payer_email'] ?? null,
-            payerMessage: $data['payer_message'] ?? null,
-            createdAt: $data['created_at'],
-            createdAtTimestamp: (int) $data['created_at_timestamp'],
+            invoice_url: $data['invoice_url'],
+            transaction_id: $data['transaction_id'],
+            source_amount: $data['source_amount'],
+            source_currency_code: $data['source_currency_code'],
+            order_id: $data['order_id'] ?? null,
+            payer_email: $data['payer_email'] ?? null,
+            payer_message: $data['payer_message'] ?? null,
+            created_at: $data['created_at'],
+            created_at_timestamp: (int) $data['created_at_timestamp'],
         );
     }
 }

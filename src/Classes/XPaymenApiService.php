@@ -99,9 +99,9 @@ class XPaymenApiService
 
         return new PaginatedResponseDTO(
             data: $transactionsDto,
-            currentPage: $response['current_page'] ?? 1,
-            lastPage: $response['last_page'] ?? 1,
-            perPage: $response['per_page'] ?? 10,
+            current_page: $response['current_page'] ?? 1,
+            last_page: $response['last_page'] ?? 1,
+            per_page: $response['per_page'] ?? 10,
             total: $response['total'] ?? 0
         );
     }
@@ -168,9 +168,9 @@ class XPaymenApiService
 
         return new PaginatedResponseDTO(
             data: $transactionsDto,
-            currentPage: $response['current_page'] ?? 1,
-            lastPage: $response['last_page'] ?? 1,
-            perPage: $response['per_page'] ?? 10,
+            current_page: $response['current_page'] ?? 1,
+            last_page: $response['last_page'] ?? 1,
+            per_page: $response['per_page'] ?? 10,
             total: $response['total'] ?? 0
         );
     }
