@@ -1,6 +1,6 @@
 # XPaymen PHP API Client
 
-A PHP client library for interacting with the [XPaymen](https://xpaymen.com) cryptocurrency payment gateway API.  
+A PHP client library for interacting with the [XPaymen](https://xpaymen.com) cryptocurrency payment gateway API.
 This library makes it easy to create and manage crypto transactions, wallets, and verify callback data.
 
 ## Table of Contents
@@ -38,7 +38,7 @@ $service = new XPaymenApiService($apiKey);
 
 ## Obtaining an API Key
 
-To obtain an API key, visit the official [XPaymen website](https://xpaymen.com).  
+To obtain an API key, visit the official [XPaymen website](https://xpaymen.com).
 Once registered, you can create and manage crypto payment gateways, and retrieve your API key from the **gateway details page**.
 
 ## Usage
@@ -46,47 +46,63 @@ Once registered, you can create and manage crypto payment gateways, and retrieve
 ### Create a Crypto Transaction
 
 ```php
-$orderId = '1234';
-$sourceAmount = 10;
-$sourceCurrencyCode = 'USD';
+try {
+    $orderId = '1234';
+    $sourceAmount = 10;
+    $sourceCurrencyCode = 'USD';
+    
+    $transaction = $service->createCryptoTransaction($orderId, $sourceAmount, $sourceCurrencyCode, [
+        'payer_email' => 'user@example.com',
+        'payer_message' => 'hi!',
+    ]);
+    
+    echo $transaction->transaction_id;
+    echo $transaction->invoice_url;
 
-$transaction = $service->createCryptoTransaction($orderId, $sourceAmount, $sourceCurrencyCode, [
-    'payer_email' => 'user@example.com',
-    'payer_message' => 'hi!',
-]);
-
-echo $transaction->transaction_id;
-echo $transaction->invoice_url;
+} catch (Throwable $e) {
+    echo "❌ Error creating transaction: " . $e->getMessage();
+}
 ```
 
 ### Get Crypto Transactions
 
 ```php
-$paginated = $service->getCryptoTransactions();
+try {
+    $paginated = $service->getCryptoTransactions();
 
-foreach ($paginated->data as $transaction) {
-    echo $transaction->transaction_id;
-    echo $transaction->status;
+    foreach ($paginated->data as $transaction) {
+        print_r($transaction->toArray());
+    }
+
+} catch (Throwable $e) {
+    echo "❌ Error fetching transactions: " . $e->getMessage();
 }
 ```
 
 ### Get Transaction Detail
 
 ```php
-$transaction = $service->getCryptoTransactionDetail('TX123456');
+try {
+    $transaction = $service->getCryptoTransactionDetail('TX123456');
 
-echo $transaction->status;
-echo $transaction->invoice_url;
+    print_r($transaction->toArray());
+} catch (Throwable $e) {
+    echo "❌ Error fetching transaction detail: " . $e->getMessage();
+}
 ```
 
 ### Get Crypto Wallets
 
 ```php
-$wallets = $service->getCryptoWallets();
+try {
+    $wallets = $service->getCryptoWallets();
 
-foreach ($wallets->data as $wallet) {
-    echo $wallet->crypto_currency_symbol;
-    echo $wallet->balance;
+    foreach ($wallets->data as $wallet) {
+        print_r($walle->toArray());
+    }
+
+} catch (Throwable $e) {
+    echo "❌ Error fetching wallets: " . $e->getMessage();
 }
 ```
 
@@ -95,12 +111,6 @@ foreach ($wallets->data as $wallet) {
 To handle payment callbacks, you need to create a dedicated file or route in your website (for example: `callback.php`).
 
 Place this file on your server and then configure its URL in your **Crypto Payment Gateway settings** on [XPaymen.com](https://xpaymen.com).
-
-For example:
-
-```
-https://example.com/callback.php
-```
 
 **Example `callback.php`:**
 
@@ -134,7 +144,7 @@ try {
             }
 
         } catch (Throwable $e) {
-            echo "\n❌ Error verifying transaction on site: ".$e->getMessage()."\n";
+            echo "\n❌ Error verifying transaction on site: " . $e->getMessage() . "\n";
         }
 
     } else {
@@ -149,7 +159,7 @@ echo '</pre>';
 
 ## Testing
 
-This repository includes PHPUnit tests.  
+This repository includes PHPUnit tests.
 You can run the tests with your API key in a single command:
 
 ```bash
