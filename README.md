@@ -31,10 +31,8 @@ composer require m-derakhshi/xpaymen
 Set your **API key** in your environment or pass it directly to the client:
 
 ```php
-use XPaymen\Classes\XPaymenApiService;
-
-$apiKey = getenv('API_KEY'); // or set directly
-$service = new XPaymenApiService($apiKey);
+$apiKey = 'YOUR_API_KEY_HERE';
+$service = new XPaymen\Classes\XPaymenApiService($apiKey);
 ```
 
 ## Obtaining an API Key
@@ -85,7 +83,6 @@ try {
     foreach ($paginated->data as $transaction) {
         print_r($transaction->toArray());
     }
-
 } catch (Throwable $e) {
     echo "❌ Error fetching transactions: " . $e->getMessage();
 }
@@ -108,11 +105,9 @@ try {
 ```php
 try {
     $wallets = $service->getCryptoWallets();
-
     foreach ($wallets->data as $wallet) {
         print_r($wallet->toArray());
     }
-
 } catch (Throwable $e) {
     echo "❌ Error fetching wallets: " . $e->getMessage();
 }
