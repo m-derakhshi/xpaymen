@@ -14,6 +14,7 @@ This library makes it easy to create and manage crypto transactions, wallets, an
     * [Get Transaction Detail](#get-transaction-detail)
     * [Get Crypto Wallets](#get-crypto-wallets)
     * [Verify Callback Data](#verify-callback-data)
+* [API Documentation](#api-documentation)
 * [Testing](#testing)
 * [License](#license)
 
@@ -157,6 +158,17 @@ try {
 }
 echo '</pre>';
 ```
+
+## API Documentation
+
+For developers who want to explore the full API specification interactively,  
+we provide a Swagger UI page:
+
+👉 [Open API Documentation (Swagger UI)](https://m-derakhshi.github.io/xpaymen/swagger.html)
+
+This page allows you to browse available endpoints, request/response formats,  
+and test the API directly in your browser.
+
 
 ## Testing
 
