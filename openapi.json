@@ -1,0 +1,491 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CryptoTransaction API",
+    "description": "API for managing crypto transactions and wallets. All responses use DTOs for structured data.\n\nFor more details, see the [GitHub Repository](https://github.com/m-derakhshi/xpaymen).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://xpaymen.com/en/api/v1",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "CryptoTransactionDTO": {
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string"
+          },
+          "order_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string"
+          },
+          "source_amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "source_currency_code": {
+            "type": "string"
+          },
+          "payer_email": {
+            "type": "string",
+            "nullable": true
+          },
+          "payer_message": {
+            "type": "string",
+            "nullable": true
+          },
+          "crypto_currency_symbol": {
+            "type": "string",
+            "nullable": true
+          },
+          "virtual_wallet_address": {
+            "type": "string",
+            "nullable": true
+          },
+          "virtual_wallet_pending_incoming_balance": {
+            "type": "number",
+            "nullable": true
+          },
+          "blockchain_expected_payment_amount": {
+            "type": "number",
+            "nullable": true
+          },
+          "blockchain_payment_amount": {
+            "type": "number",
+            "nullable": true
+          },
+          "blockchain_unpaid_amount": {
+            "type": "number",
+            "nullable": true
+          },
+          "status": {
+            "type": "string"
+          },
+          "invoice_url": {
+            "type": "string"
+          },
+          "confirm_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirm_at_timestamp": {
+            "type": "integer",
+            "nullable": true
+          },
+          "expired_at": {
+            "type": "string"
+          },
+          "expired_at_timestamp": {
+            "type": "integer",
+            "example": 1693401600
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "created_at_timestamp": {
+            "type": "integer",
+            "example": 1693401600
+          },
+          "is_callback_url_verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "transaction_id",
+          "type",
+          "source_amount",
+          "source_currency_code",
+          "status",
+          "invoice_url",
+          "expired_at",
+          "expired_at_timestamp",
+          "created_at",
+          "created_at_timestamp",
+          "is_callback_url_verified"
+        ]
+      },
+      "CryptoTransactionReceiptDTO": {
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string"
+          },
+          "order_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string"
+          },
+          "source_amount": {
+            "type": "string"
+          },
+          "source_currency_code": {
+            "type": "string"
+          },
+          "payer_email": {
+            "type": "string",
+            "nullable": true
+          },
+          "payer_message": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoice_url": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "created_at_timestamp": {
+            "type": "integer",
+            "example": 1693401600
+          }
+        },
+        "required": [
+          "transaction_id",
+          "type",
+          "source_amount",
+          "source_currency_code",
+          "invoice_url",
+          "created_at",
+          "created_at_timestamp"
+        ]
+      },
+      "CryptoWalletDTO": {
+        "type": "object",
+        "properties": {
+          "crypto_currency_symbol": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "string"
+          },
+          "pending_incoming_balance": {
+            "type": "string"
+          },
+          "pending_outgoing_balance": {
+            "type": "string"
+          },
+          "last_sync_attempted_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_sync_attempted_at_timestamp": {
+            "type": "integer",
+            "nullable": true
+          }
+        },
+        "required": [
+          "crypto_currency_symbol",
+          "address",
+          "balance",
+          "pending_incoming_balance",
+          "pending_outgoing_balance"
+        ]
+      },
+      "PaginatedCryptoTransactionDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CryptoTransactionDTO"
+            }
+          },
+          "current_page": {
+            "type": "integer",
+            "example": 1
+          },
+          "last_page": {
+            "type": "integer",
+            "example": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "example": 50
+          },
+          "total": {
+            "type": "integer",
+            "example": 10
+          }
+        }
+      },
+      "PaginatedCryptoWalletDTO": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CryptoWalletDTO"
+            }
+          },
+          "current_page": {
+            "type": "integer",
+            "example": 1
+          },
+          "last_page": {
+            "type": "integer",
+            "example": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "example": 50
+          },
+          "total": {
+            "type": "integer",
+            "example": 10
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/crypto-transaction/create": {
+      "get": {
+        "summary": "Create a new crypto transaction",
+        "parameters": [
+          {
+            "name": "orderID",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceAmount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          {
+            "name": "sourceCurrencyCode",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CryptoTransactionReceiptDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crypto-transactions": {
+      "get": {
+        "summary": "Get paginated crypto transactions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to retrieve. Default is 1.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of items per page. Default is 50, maximum allowed is 100.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of crypto transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedCryptoTransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crypto-transaction/{transactionID}": {
+      "get": {
+        "summary": "Get crypto transaction detail",
+        "parameters": [
+          {
+            "name": "transactionID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CryptoTransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crypto-wallets": {
+      "get": {
+        "summary": "Get paginated crypto wallets",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number to retrieve. Default is 1.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of items per page. Default is 50, maximum allowed is 100.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of crypto wallets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedCryptoWalletDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crypto-transaction/{transaction_id}/callback/verify": {
+      "get": {
+        "summary": "Verify callback data for transaction",
+        "description": "Verifies callback data sent from payment gateway.\n\nOptional query parameters may be passed for additional verification. If provided, their values must match the transaction data.",
+        "parameters": [
+          {
+            "name": "transaction_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Unique identifier of the transaction to verify."
+          },
+          {
+            "name": "order_id",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional. If provided, must match the transaction's order ID."
+          },
+          {
+            "name": "source_amount",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number", "format": "float" },
+            "description": "Optional. If provided, must match the transaction's source amount."
+          },
+          {
+            "name": "source_currency_code",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional. If provided, must match the transaction's source currency code (e.g. USD, EUR, DOGE)."
+          },
+          {
+            "name": "crypto_currency_symbol",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional. If provided, must match the cryptocurrency symbol (e.g. BTC, ETH, DOGE)."
+          },
+          {
+            "name": "blockchain_expected_payment_amount",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number", "format": "float" },
+            "description": "Optional. If provided, must match the expected payment amount on blockchain."
+          },
+          {
+            "name": "blockchain_payment_amount",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number", "format": "float" },
+            "description": "Optional. If provided, must match the actual payment amount on blockchain."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verified transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CryptoTransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
