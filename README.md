@@ -106,23 +106,45 @@ https://example.com/callback.php
 
 ```php
 <?php
+
 use XPaymen\Classes\XPaymenApiService;
 use XPaymen\DTOs\CryptoTransactionDTO;
 
 require 'vendor/autoload.php';
 
-$service = new XPaymenApiService('your_api_key_here');
+$apiKey = 'XPI2NzrwM1y7YmenQu6BcdgLlbXLEaNCrZnkw3svgAdsNnWMsYq61ZgsxGL1CMx1';
+$service = new XPaymenApiService($apiKey);
 
-$verifiedTransaction = $service->verifyCallbackData();
-if ($verifiedTransaction instanceof CryptoTransactionDTO) {
-    // Optional: verify the transaction on XPaymen.com
-    $service->verifyCryptoTransactionInSite($verifiedTransaction->transactionId);
+echo '<pre>';
+try {
+    $verifiedTransaction = $service->verifyCallbackData();
 
-    // Process the transaction data (save to DB, update order status, etc.)
-    print_r($verifiedTransaction->toArray());
-} else {
-    echo 'Callback verification failed.';
+    if ($verifiedTransaction instanceof CryptoTransactionDTO) {
+        echo "✅ Callback verified transaction:\n";
+        print_r($verifiedTransaction->toArray());
+
+        // Optional: Verify transaction on XPaymen.com
+        try {
+            $callbackTransaction = $service->verifyCryptoTransactionInSite($verifiedTransaction->transactionId);
+
+            if ($callbackTransaction->isCallbackUrlVerified) {
+                echo "\n✅ Callback URL is verified.\n";
+            } else {
+                echo "\n⚠ Callback URL not verified.\n";
+            }
+
+        } catch (Throwable $e) {
+            echo "\n❌ Error verifying transaction on site: ".$e->getMessage()."\n";
+        }
+
+    } else {
+        echo "⚠ Callback verification failed.\n";
+    }
+
+} catch (Throwable $e) {
+    echo '❌ Error verifying callback data: '.$e->getMessage()."\n";
 }
+echo '</pre>';
 ```
 
 ## Testing

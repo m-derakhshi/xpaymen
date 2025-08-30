@@ -129,8 +129,8 @@ class XPaymenApiService
         foreach ($_POST as $k => $v) {
             if ($v === null) {
                 $filtered[$k] = '';
-            } elseif (is_bool($v)) {
-                $filtered[$k] = $v ? '1' : '0';
+            } elseif (is_bool($v) || $v === 'false' || $v === 'true') {
+                $filtered[$k] = ($v === true || $v === 'true') ? '1' : '0';
             } elseif (filter_var($v, FILTER_VALIDATE_URL)) {
                 $filtered[$k] = rawurldecode($v);
             } else {
@@ -142,30 +142,7 @@ class XPaymenApiService
         $calculatedHash = hash_hmac('sha1', $serialized, $this->apiKey);
 
         if (hash_equals($calculatedHash, $verifyHash)) {
-            return new CryptoTransactionDTO(
-                type: $_POST['type'],
-                status: $_POST['status'],
-                invoiceUrl: $_POST['invoice_url'],
-                transactionId: $_POST['transaction_id'],
-                sourceAmount: $_POST['source_amount'],
-                sourceCurrencyCode: $_POST['source_currency_code'],
-                orderId: $_POST['order_id'],
-                payerEmail: $_POST['payer_email'],
-                payerMessage: $_POST['payer_message'],
-                cryptoCurrencySymbol: $_POST['crypto_currency_symbol'],
-                virtualWalletAddress: $_POST['virtual_wallet_address'],
-                virtualWalletPendingIncomingBalance: $_POST['virtual_wallet_pending_incoming_balance'],
-                blockchainExpectedPaymentAmount: $_POST['blockchain_expected_payment_amount'],
-                blockchainPaymentAmount: $_POST['blockchain_payment_amount'],
-                blockchainUnpaidAmount: $_POST['blockchain_unpaid_amount'],
-                confirmAt: $_POST['confirm_at'],
-                confirmAtTimestamp: $_POST['confirm_at_timestamp'],
-                expiredAt: $_POST['expired_at'],
-                expiredAtTimestamp: $_POST['expired_at_timestamp'],
-                createdAt: $_POST['created_at'],
-                createdAtTimestamp: $_POST['created_at_timestamp'],
-                isCallbackUrlVerified: $_POST['is_callback_url_verified'],
-            );
+            return CryptoTransactionDTO::fromArray($_POST);
         }
 
         return false;
