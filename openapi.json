@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "CryptoTransaction API",
+    "title": "XPaymen Crypto Payment Gateway API",
     "description": "API for managing crypto transactions and wallets. All responses use DTOs for structured data.\n\nFor more details, see the [GitHub Repository](https://github.com/m-derakhshi/xpaymen).",
     "version": "1.0.0"
   },
