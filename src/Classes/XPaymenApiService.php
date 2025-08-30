@@ -148,9 +148,17 @@ class XPaymenApiService
         return false;
     }
 
-    public function verifyCryptoTransactionInSite(string $transactionID): CryptoTransactionDTO
+    public function verifyCryptoTransactionInSite(string $transactionID, ?CryptoTransactionDTO $verifiedTransaction = null): CryptoTransactionDTO
     {
-        $response = $this->fetchUrl($this->apiUrl.'/crypto-transaction/'.$transactionID.'/callback/verify');
+        $query = ($verifiedTransaction) ? '?'.http_build_query([
+            'order_id' => $verifiedTransaction->order_id,
+            'source_amount' => $verifiedTransaction->source_amount,
+            'source_currency_code' => $verifiedTransaction->source_currency_code,
+            'crypto_currency_symbol' => $verifiedTransaction->crypto_currency_symbol,
+            'blockchain_expected_payment_amount' => $verifiedTransaction->blockchain_expected_payment_amount,
+            'blockchain_payment_amount' => $verifiedTransaction->blockchain_payment_amount,
+        ]) : '';
+        $response = $this->fetchUrl($this->apiUrl.'/crypto-transaction/'.$transactionID.'/callback/verify'.$query);
 
         if (! isset($response['transaction_id'])) {
             throw new \RuntimeException($response['message'] ?? "API response does not contain 'transaction_id'");
